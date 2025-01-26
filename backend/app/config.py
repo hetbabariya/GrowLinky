@@ -11,7 +11,7 @@ class Config:
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", os.urandom(24).hex())
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
-        f"mysql+mysqlconnector://{os.getenv('DATABASE_USER')}:{os.getenv('DATABASE_PASSWORD')}"
+        f"mysql+pymysql://{os.getenv('DATABASE_USER')}:{os.getenv('DATABASE_PASSWORD')}"
         f"@{os.getenv('DATABASE_HOST')}/{os.getenv('DATABASE_NAME')}"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False

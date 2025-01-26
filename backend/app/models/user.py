@@ -16,5 +16,3 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, nullable=True, default=func.now(), onupdate=func.now())
     is_valid = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=True)
-
-    otp = relationship("Otp", backref="user", lazy=True , cascade="all, delete-orphan")
