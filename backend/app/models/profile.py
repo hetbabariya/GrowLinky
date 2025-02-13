@@ -10,13 +10,13 @@ class Profile(db.Model):
     user_id = db.Column(db.String(255), db.ForeignKey('user.user_id'), nullable=False)
     profile_name = db.Column(db.String(255), nullable=False)
     subheading = db.Column(db.String(255))
-    skills = db.Column(db.Text)  
+    skills = db.Column(db.Text)
     bio = db.Column(db.Text)
     gender = db.Column(db.String(50), nullable=False)
     mobile_no = db.Column(db.String(20), nullable=False)
-    social_links = db.Column(db.Text)  
+    social_links = db.Column(db.Text)
     experience = db.Column(db.Text)
-    dp_link = db.Column(db.String(500))  
+    dp_link = db.Column(db.String(500))
     post_count = db.Column(db.Integer, default=0)
     connection_count = db.Column(db.Integer, default=0)
     view_count = db.Column(db.Integer, default=0)
@@ -25,4 +25,3 @@ class Profile(db.Model):
     is_public = db.Column(db.Boolean, default=True)
 
     user = relationship("User", backref=db.backref("profile", cascade="all, delete-orphan"))
-
