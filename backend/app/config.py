@@ -8,7 +8,7 @@ class Config:
     Configuration class for Flask app.
     """
     SECRET_KEY = os.getenv("SECRET_KEY", os.urandom(24).hex())
-    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", os.urandom(24).hex())
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
         f"mysql+pymysql://{os.getenv('DATABASE_USER')}:{os.getenv('DATABASE_PASSWORD')}"

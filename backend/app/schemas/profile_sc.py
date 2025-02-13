@@ -2,7 +2,7 @@ from marshmallow import fields, validate, ValidationError
 from app import ma
 
 class ProfileGetSchema(ma.Schema):
-    profile_id = fields.String(dump_only=True)  
+    profile_id = fields.String(dump_only=True)
     user_id = fields.String(required=True)
     profile_name = fields.String(required=True)
     subheading = fields.String()
@@ -22,21 +22,20 @@ class ProfileGetSchema(ma.Schema):
 
 # Schema for creating a profile (POST request)
 class ProfilePostSchema(ma.Schema):
-    user_id = fields.String(required=True)
     profile_name = fields.String(
-        required=True, 
-        validate=validate.Length(min=5, max=15), 
+        required=True,
+        validate=validate.Length(min=5, max=15),
         error_messages={"required": "Profile name is required"}
     )
     subheading = fields.String(
-        validate=validate.Length(min=15, max=50), 
+        validate=validate.Length(min=15, max=50),
         error_messages={"required": "Subheading should be between 15 to 50 characters"}
     )
     skills = fields.String()
     bio = fields.String()
     gender = fields.String(required=True)
     mobile_no = fields.String(
-        validate=validate.Length(equal=10), 
+        validate=validate.Length(equal=10),
         error_messages={"required": "Please enter a valid 10-digit mobile number"}
     )
     social_links = fields.String()
