@@ -24,4 +24,4 @@ class Profile(db.Model):
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
     is_public = db.Column(db.Boolean, default=True)
 
-    user = relationship("User", backref=db.backref("profile", cascade="all, delete-orphan"))
+    user = relationship("user", backref=db.backref("profile", cascade="all, delete-orphan"))
