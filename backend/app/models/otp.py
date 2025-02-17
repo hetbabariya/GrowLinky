@@ -13,4 +13,4 @@ class Otp(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=func.now())
     updated_at = db.Column(db.DateTime, nullable=True, default=func.now(), onupdate=func.now())
 
-    user = relationship("user", backref=db.backref("otp", cascade="all, delete-orphan"))
+    user = relationship("User", backref=db.backref("otps", cascade="all, delete-orphan"))
