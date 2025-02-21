@@ -14,13 +14,12 @@ class PostGetSchema(ma.Schema):
 
 
 class PostPostSchema(ma.Schema):
-    user_id = fields.String(required=True)
+    user_id = fields.String()
     post_caption = fields.String(
         validate=validate.Length(max=50),
         error_messages={"required": "caption is to long"}
     )
     post_image = fields.String()
-    like_count = fields.String()
-    comment_count = fields.String()
+    like_count = fields.String(dump_only=True)
+    comment_count = fields.String(dump_only=True)
     is_deleted = fields.Boolean()
-
