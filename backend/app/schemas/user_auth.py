@@ -42,6 +42,10 @@ class LoginSchema(ma.Schema):
 
 # OTP Schema
 class OTPSchema(ma.Schema):
+    user_email = fields.Email(
+        required=True,
+        error_messages={"required": "Email is required"}
+    )
     otp = fields.Integer(
         required=True,
         validate=validate.Range(min=100000, max=999999),
@@ -73,6 +77,10 @@ class ChangePasswordSchema(ma.Schema):
 
 # Forget Password Schema
 class ForgetPasswordSchema(ma.Schema):
+    user_email = fields.Email(
+        required=True,
+        error_messages={"required": "Email is required"}
+    )
     new_password = password_field()
     confirm_password = fields.String(
         required=True,
