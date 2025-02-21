@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Requests</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/frontend/assets/css/style.css">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-10xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <button id="menuBtn" class="md:hidden p-2 rounded-md hover:bg-gray-100">
+                        <i class="bi bi-list text-2xl"></i>
+                    </button>
+                    <a href="index.html"><img src="./../assets/images/GrowLinky-removebg-preview crop.png" class="logo"></a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full hover:bg-gray-100" title="Home">
+                        <a href="index.html"><i class="bi bi-house-door text-xl"></a></i>
+                    </button>
+                    <button class="p-2 rounded-full hover:bg-gray-100" title="Groups">
+                       <a href="friends.html"><i class="bi bi-people text-xl"></i></a> </i>
+                    </button>
+                    <button class="p-2 rounded-full hover:bg-gray-100 relative" title="Messages">
+                        <i class="bi bi-chat text-xl"></i>
+                        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                    </button>
+                    <button class="p-2 rounded-full hover:bg-gray-100" title="Notifications">
+                        <i class="bi bi-bell text-xl"></i>
+                    </button>
+                    <button><a href="settings.html" class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg"><i class="bi bi-gear text-xl"></a></i></button>
+                    <a href="profile.html"><img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop" class="w-10 h-10 rounded-full"></a>
+                   <a href="login_signup.html"> <button class="btn-login px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition">Login</button></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Friend Requests</h2>
+        <div class="friends-list">
+            <div class="friend">
+                <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Friend 1">
+                <div class="friend-info">
+                    <h4>Chris Evans</h4>
+                    <p>@chrisevans</p>
+                </div>
+                <div class="request-buttons">
+                    <button class="accept-btn">Accept</button>
+                    <button class="decline-btn">Decline</button>
+                </div>
+            </div>
+
+            <div class="friend">
+                <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Friend 2">
+                <div class="friend-info">
+                    <h4>Anna Lee</h4>
+                    <p>@annalee</p>
+                </div>
+                <div class="request-buttons">
+                    <button class="accept-btn">Accept</button>
+                    <button class="decline-btn">Decline</button>
+                </div>
+            </div>
+
+            <div class="friend">
+                <img src="https://randomuser.me/api/portraits/men/13.jpg" alt="Friend 3">
+                <div class="friend-info">
+                    <h4>James Walker</h4>
+                    <p>@jameswalker</p>
+                </div>
+                <div class="request-buttons">
+                    <button class="accept-btn">Accept</button>
+                    <button class="decline-btn">Decline</button>
+                </div>
+            </div>
+
+            <div class="friend">
+                <img src="https://randomuser.me/api/portraits/women/14.jpg" alt="Friend 4">
+                <div class="friend-info">
+                    <h4>Sophia Kim</h4>
+                    <p>@sophiakim</p>
+                </div>
+                <div class="request-buttons">
+                    <button class="accept-btn">Accept</button>
+                    <button class="decline-btn">Decline</button>
+                </div>
+            </div>
+
+            <div class="friend">
+                <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Friend 5">
+                <div class="friend-info">
+                    <h4>Ryan Scott</h4>
+                    <p>@ryanscott</p>
+                </div>
+                <div class="request-buttons">
+                    <button class="accept-btn">Accept</button>
+                    <button class="decline-btn">Decline</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -159,7 +159,7 @@
 
  .container .cover .text::before {
    content: '';
-   background-image: url("D:/GrowLinky/frontend/assets/images/GrowLinky.jpg");
+   background-image: url("./../images/GrowLinky.jpg");
    position: absolute;
    height: 100%;
    width: 100%;
@@ -366,7 +366,7 @@
    width: 100%;
    height: calc(100px + 15vw);
    /* Responsive height */
-   background-image: url('D:/GrowLinky/frontend/assets/images/head1.jpg');
+   background-image: url('./../images/head1.jpg');
    /* Use the desired image */
    background-size: cover;
    background-position: center;
@@ -679,4 +679,177 @@
    /* Light green hover effect */
  }
 
+
  
+
+ /* -------------------------------friend list----------------------------- */
+
+ body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 50%;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #00681f;
+  font-size: 25px;
+}
+
+.friends-list {
+  margin-top: 20px;
+}
+
+.friend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.friend img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.friend-info {
+  flex-grow: 1;
+}
+
+.friend-info h4 {
+  margin: 0;
+  color: #333;
+}
+
+.friend-info p {
+  margin: 0;
+  color: gray;
+  font-size: 14px;
+}
+
+.remove-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.remove-btn:hover {
+  background: darkred;
+}
+
+
+/* ------------------------------------friend requests--------------------------------------- */
+
+/* Friend Requests Page */
+.request-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.accept-btn:hover {
+  background: #218838;
+}
+
+.decline-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.decline-btn:hover {
+  background: #c82333;
+}
+
+
+/* --------------------------------admin panel---------------------------------- */
+
+/* Admin Panel Page */
+.admin-container {
+  width: 60%;
+  margin: 80px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.admin-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.admin-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.admin-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #28a745;
+}
+
+.admin-card p {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.admin-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.admin-btn:hover {
+  background: #218838;
+}

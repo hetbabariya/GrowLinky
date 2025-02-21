@@ -4,8 +4,8 @@ from app.models.user import User
 from sqlalchemy.exc import IntegrityError
 from marshmallow.exceptions import ValidationError
 
+# create Post
 def create_post(user_id, data):
-
     user = User.query.filter_by(user_id=user_id).first()
     if not user:
         raise ValueError("User not found")
@@ -15,13 +15,13 @@ def create_post(user_id, data):
         user_id=user.user_id,
         post_caption=data.get("post_caption"),
         post_image=data.get("post_image"),
-        like_count=data.get("like_count", 0), 
-        comment_count=data.get("comment_count", 0), 
-        is_deleted=data.get("is_deleted", False) 
+        like_count=data.get("like_count", 0),
+        comment_count=data.get("comment_count", 0),
+        is_deleted=data.get("is_deleted", False)
     )
 
     try:
-    
+
         db.session.add(new_post)
         db.session.commit()
         return new_post
@@ -30,8 +30,9 @@ def create_post(user_id, data):
         raise ValueError("Post creation failed due to a database error")
 
 
-def update_post(post_id, data):
 
+# Update Post
+def update_post(post_id, data):
     post = Post.query.filter_by(post_id=post_id).first()
     if not post:
         raise ValueError("Post not found")
@@ -42,7 +43,7 @@ def update_post(post_id, data):
             setattr(post, key, value)
 
     try:
-    
+
         db.session.commit()
         return post
     except IntegrityError:
@@ -50,14 +51,15 @@ def update_post(post_id, data):
         raise ValueError("Post update failed due to a database error")
 
 
-def delete_post(post_id):
 
+# Delete Post
+def delete_post(post_id):
     post = Post.query.filter_by(post_id=post_id).first()
     if not post:
         raise ValueError("Post not found")
 
     try:
-    
+
         db.session.delete(post)
         db.session.commit()
         return {"message": "Post deleted successfully"}
@@ -66,8 +68,9 @@ def delete_post(post_id):
         raise ValueError("Post deletion failed due to a database error")
 
 
-def get_post_by_id(post_id):
 
+# Get Post by Id
+def get_post_by_id(post_id):
     post = Post.query.filter_by(post_id=post_id).first()
     if not post:
         raise ValueError("Post not found")
@@ -75,7 +78,24 @@ def get_post_by_id(post_id):
     return post
 
 
-def get_all_posts(limit=10, offset=0):
 
+# Get All Post By User
+def get_all_posts_by_user(user_id):
+    """Fetch all posts of a specific user"""
+    user = User.query.filter_by(user_id=user_id).first()
+    if not user:
+        raise ValueError("User not found")
+
+    posts = Post.query.filter_by(user_id=user_id, is_deleted=False).order_by(Post.created_at.desc()).all()
+
+    if not posts:
+        raise ValueError("No posts found for this user")
+
+    return posts
+
+
+
+# Get All Post
+def get_all_posts(limit=10, offset=0):
     posts = Post.query.limit(limit).offset(offset).all()
     return posts
