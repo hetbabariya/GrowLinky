@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from marshmallow import ValidationError
 from app.services.request_services import (
     create_request,
+    get_send_requests_for_user,
     update_request,
     delete_request,
     get_requests_for_user,
@@ -19,9 +20,9 @@ def create_new_request():
     try:
         schema = RequestCreateSchema()
         data = schema.load(request.get_json())
+        current_user = get_jwt_identity()
 
-        # Ensure authenticated user is the sender
-        if get_jwt_identity() != data["user_id_self"]:
+        if current_user != data["user_id_self"]:
             return jsonify({"error": "Unauthorized"}), 403
 
         request_obj = create_request(data)
@@ -81,5 +82,19 @@ def get_request_details(request_id):
     try:
         request_obj = get_request_by_id(request_id)
         return jsonify(RequestGetSchema().dump(request_obj)), 200
+    except ValueError as err:
+        return jsonify({"error": str(err)}), 404
+
+# Get Send Connection Requests
+@request_bp.route("/send/requests", methods=["GET"])
+@jwt_required()
+def get_all_send_requests_for_user():
+    try:
+        user_id = get_jwt_identity()
+        limit = request.args.get("limit", 10, type=int)
+        offset = request.args.get("offset", 0, type=int)
+
+        requests = get_send_requests_for_user(user_id, limit, offset)
+        return jsonify(RequestGetSchema(many=True).dump(requests)), 200
     except ValueError as err:
         return jsonify({"error": str(err)}), 404
