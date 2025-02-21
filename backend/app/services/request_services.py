@@ -72,6 +72,15 @@ def get_requests_for_user(user_id, limit=10, offset=0):
 
     return Request.query.filter_by(user_id_connection=user_id).limit(limit).offset(offset).all()
 
+# Get send Request
+def get_send_requests_for_user(user_id, limit=10, offset=0):
+    user = User.query.get(user_id)
+
+    if not user:
+        raise ValueError("User not found")
+
+    return Request.query.filter_by(user_id_self=user_id).limit(limit).offset(offset).all()
+
 
 # Get request details by ID
 def get_request_by_id(request_id):
