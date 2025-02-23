@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from marshmallow import ValidationError
-from app.schemas.user_auth import RegistrationSchema, LoginSchema, OTPSchema, ChangePasswordSchema, ForgetPasswordSchema
+from app.schemas.user_auth import RegistrationSchema, LoginSchema, OTPSchema, ChangePasswordSchema, ForgetPasswordSchema, UserGetSchema
 from app.services.user_auth_services import (
-    register_user, login_user, generate_otp, verify_otp, forget_password,
+    get_user_by_id, register_user, login_user, generate_otp, verify_otp, forget_password,
     reset_password, change_password, deactivate_account
 )
 from flask_jwt_extended import get_jwt_identity, jwt_required
@@ -34,9 +34,11 @@ def register():
 # Login User
 @auth_bp.route('/login', methods=['POST'])
 def login():
+    print("Login route called")  # Debugging line
     try:
         schema = LoginSchema()
         data = schema.load(request.get_json())
+        print(f"Received data: {data}")  # Debugging line
         tokens = login_user(data)
         return jsonify(tokens), 200
     except ValidationError as err:
@@ -129,3 +131,26 @@ def deactivate():
 
     except ValueError as err:
         return jsonify({"error": str(err)}), 400
+
+
+# Get User by id
+@auth_bp.route('/users/<string:user_id>', methods=['GET'])
+@jwt_required()
+def get_single_user(user_id):
+    try:
+        current_user = get_jwt_identity()
+        user = get_user_by_id(user_id)
+        return jsonify(UserGetSchema().dump(user)), 200
+    except ValueError as err:
+        return jsonify({"error": str(err)}), 404
+
+# Get User by id
+@auth_bp.route('/users/me', methods=['GET'])
+@jwt_required()
+def get_user():
+    try:
+        current_user = get_jwt_identity()
+        user = get_user_by_id(current_user)
+        return jsonify(UserGetSchema().dump(user)), 200
+    except ValueError as err:
+        return jsonify({"error": str(err)}), 404

@@ -87,7 +87,7 @@ def get_user_posts(user_id):
 @post_bp.route('/posts/all', methods=['GET'])
 @jwt_required()
 def get_posts():
-    limit = request.args.get('limit', default=10, type=int)
+    limit = request.args.get('limit', default=100, type=int)
     offset = request.args.get('offset', default=0, type=int)
-    posts = get_all_posts(limit, offset)
+    posts = get_all_posts(limit, offset)  # Get posts with user names
     return jsonify(PostGetSchema(many=True).dump(posts)), 200

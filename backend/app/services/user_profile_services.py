@@ -10,7 +10,8 @@ def get_profile_by_username(user_id):
     user = User.query.filter_by(user_id = user_id).first()
     if not user:
         raise ValueError("User not found")
-
+    print(user.user_id)
+    print('--------------------------------')
     profile = Profile.query.filter_by(user_id=user.user_id).first()
     if not profile:
             raise ValueError("Profile not found")

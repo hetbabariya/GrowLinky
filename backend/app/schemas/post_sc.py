@@ -4,10 +4,11 @@ from app import ma
 class PostGetSchema(ma.Schema):
     post_id = fields.String(dump_only=True)
     user_id = fields.String(required=True)
+    user_name = fields.String(dump_only=True)  # Add user_name field
     post_caption = fields.String()
     post_image = fields.String()
-    like_count = fields.String()
-    comment_count = fields.String()
+    like_count = fields.Integer()  # Should be Integer instead of String
+    comment_count = fields.Integer()  # Should be Integer instead of String
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
     is_deleted = fields.Boolean()
