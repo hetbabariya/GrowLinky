@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title> Login and Registration Form in HTML & CSS | CodingLab </title>
-    <link rel="stylesheet" href="./../assets/css/style.css">
-    <link rel="stylesheet" href="./../assets/css/back.css">
-    <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-<body style="background-image:linear-gradient(rgba(0, 0, 0, 0.436) ,rgba(0, 0, 0, 0.436)), url(./../assets/images/freepik__adjust__1.png);">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Login and Registration Form in HTML & CSS | CodingLab </title>
+  <link rel="stylesheet" href="./../assets/css/style.css">
+  <link rel="stylesheet" href="./../assets/css/back.css">
+  <!-- Fontawesome CDN Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body
+  style="background-image:linear-gradient(rgba(0, 0, 0, 0.436) ,rgba(0, 0, 0, 0.436)), url(./../assets/images/freepik__adjust__1.png);">
   <div class="container">
     <input type="checkbox" id="flip">
     <div class="cover">
       <div class="front">
-        <img src="images/frontImg.jpg" alt="">  
+        <img src="images/frontImg.jpg" alt="">
         <div class="text">
           <span class="text-1"></span>
           <span class="text-2"></span>
@@ -30,18 +33,19 @@
       </div>
     </div>
     <div class="forms">
-        <div class="form-content">
-          <div class="login-form">
-            <div class="title">Login</div>
+      <div class="form-content">
+        <div class="login-form">
+          <div class="title">Login</div>
           <form action="#">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter your email" required>
+                <input type="email" name="user_email" id="user_email" placeholder="Enter your email" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
+                <input type="password" name="user_password" id="user_password" placeholder="Enter your password"
+                  required>
               </div>
               <div class="text"><a href="#">Forgot password?</a></div>
               <div class="button input-box">
@@ -49,67 +53,135 @@
               </div>
               <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
             </div>
-        </form>
-      </div>
+          </form>
+        </div>
         <div class="signup-form">
           <div class="title">Signup</div>
-        <form action="#">
+          <form action="#">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter your name" required>
+                <input type="text" name="user_name" id="user_name" placeholder="Enter your name" required>
               </div>
 
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter your email" required>
+                <input type="email" name="user_email" id="email" placeholder="Enter your email" required>
               </div>
               <div class="input-box">
                 <label><input type="radio" name="userType" value="student"> Student</label>
                 <label><input type="radio" name="userType" value="teacher"> Teacher</label>
-            </div>
-            <div class="input-box">
+              </div>
+              <div class="input-box">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter your ID" required id="userid">
-            </div>
-            
+                <input type="text" name="user_sid" id="user_sid" placeholder="Enter your ID" required id="userid">
+              </div>
+
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
+                <input type="password" name="user_password" id="password" placeholder="Enter your password" required>
               </div>
               <div class="button input-box">
                 <input type="submit" value="Sumbit">
               </div>
               <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
             </div>
-      </form>
-    </div>
-    </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-  
 
-  <!--------------------------------------- radioo button --------------------------------------- -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const radioButtons = document.querySelectorAll('input[name="userType"]');
-    const usernameInput = document.getElementById('userid');
 
-    function updatePlaceholder(event) {
-        const selectedValue = event.target.value;
+    console.log(typeof jQuery);
+
+    $(document).ready(function () {
+      const usernameInput = $('#userid');
+
+      // Change placeholder based on selected radio button
+      $('input[name="userType"]').on('change', function () {
+        const selectedValue = $(this).val();
         if (selectedValue === 'student') {
-            usernameInput.placeholder = 'Enter your Student ID';
+          usernameInput.attr('placeholder', 'Enter your Student ID');
         } else if (selectedValue === 'teacher') {
-            usernameInput.placeholder = 'Enter your Teacher ID';
+          usernameInput.attr('placeholder', 'Enter your Teacher ID');
         } else {
-            usernameInput.placeholder = 'Enter your ID';
+          usernameInput.attr('placeholder', 'Enter your ID');
         }
-    }
+      });
 
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', updatePlaceholder);
+      // AJAX call for login form
+      $('.login-form form').on('submit', function (event) {
+        event.preventDefault();
+
+        let email = $('#user_email').val();
+        let password = $('#user_password').val();
+
+        if (!email || !password) {
+          alert("Email and password are required!");
+          return;
+        }
+
+
+        let formData = { user_email: email, user_password: password };
+        console.log("Sending data:", formData);
+
+        $.ajax({
+          type: "POST",
+          url: "http://127.0.0.1:5000/api/auth/login",
+          contentType: "application/json",
+          data: JSON.stringify(formData),
+          success: function (response) {
+            console.log("Success:", response);
+            localStorage.setItem("access_token", response.access_token);
+            localStorage.setItem("refresh_token", response.refresh_token);
+            window.location.href = 'profile.html';
+          },
+          error: function (xhr, status, error) {
+            console.error("Error details:", xhr.responseText);
+            alert("Login Failed! " + xhr.responseText);
+          }
+        });
+      });
+
+
+      // AJAX call for signup form
+      $('.signup-form form').on('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        let formData = {
+          user_name: $('#user_name').val(),
+          user_email: $('#email').val(),
+          user_password: $('#password').val(),
+          user_sid: $('#user_sid').val(),
+        };
+        console.log(formData.user_sid);
+
+        $.ajax({
+          type: "POST",
+          url: "http://127.0.0.1:5000/api/auth/register",  // Replace with your actual backend endpoint
+          contentType: "application/json",
+          data: JSON.stringify(formData),
+          success: function (response) {
+            // alert("Signup Successful!");
+            window.location.href = 'profile.html'; // Replace 'page.html' with the URL of the page you want to redirect to
+            console.log(response);
+            // Redirect or handle success response
+          },
+          error: function (xhr, status, error) {
+            alert("Signup Failed!");
+            console.log(error);
+          }
+        });
+      });
     });
-});
-</script>
+  </script>
+
+
 </body>
+
 </html>

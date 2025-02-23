@@ -93,3 +93,15 @@ class ForgetPasswordSchema(ma.Schema):
         if data["new_password"] != data["confirm_password"]:
             raise ValidationError("New password and confirm password do not match.")
         return data
+
+
+class UserGetSchema(ma.Schema):
+    user_id = fields.String(dump_only=True)
+    user_sid = fields.String()
+    user_fid = fields.String()
+    user_name = fields.String(required=True)
+    user_email = fields.String(required=True)
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+    is_valid = fields.Boolean()
+    is_active = fields.Boolean()

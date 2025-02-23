@@ -10,28 +10,63 @@ from app.utils.user_auth_helper import create_user_tokens, send_otp_email
 from sqlalchemy.sql import func
 
 
+from sqlalchemy.exc import IntegrityError
+from werkzeug.security import generate_password_hash
+from app import db
+from app.models import User
+
 # Register User
 def register_user(data):
-    existing_user = User.query.filter(
-        (User.user_email == data['user_email']) |
-        (User.user_name == data['user_name'])
-    ).first()
+    try:
+        user_sid = data.get('user_sid')
+        user_fid = data.get('user_fid')
 
-    if existing_user:
-        raise ValueError("User with this email or username already exists.")
+        if not user_sid and not user_fid:
+            raise ValueError("Either user_sid or user_fid must be provided.")
 
-    new_user = User(
-        user_name=data['user_name'],
-        user_email=data['user_email'],
-        user_password=generate_password_hash(data['user_password'], method='pbkdf2:sha256'),
-        user_fid=data.get('user_fid'),
-        user_sid=data.get('user_sid')
-    )
+        # Build filter conditions dynamically based on provided values
+        filters = []
+        if 'user_email' in data:
+            filters.append(User.user_email == data['user_email'])
+        if 'user_name' in data:
+            filters.append(User.user_name == data['user_name'])
+        if user_sid:
+            filters.append(User.user_sid == user_sid)
+        if user_fid:
+            filters.append(User.user_fid == user_fid)
 
-    db.session.add(new_user)
-    db.session.commit()
-    return new_user
+        # Check for an existing user
+        existing_user = User.query.filter(*filters).first()
 
+        if existing_user:
+            conflict_fields = []
+            if existing_user.user_email == data.get('user_email'):
+                conflict_fields.append("email")
+            if existing_user.user_name == data.get('user_name'):
+                conflict_fields.append("username")
+            if user_sid and existing_user.user_sid == user_sid:
+                conflict_fields.append("SID")
+            if user_fid and existing_user.user_fid == user_fid:
+                conflict_fields.append("FID")
+
+            raise ValueError(f"User with this {', '.join(conflict_fields)} already exists.")
+
+        # Create new user
+        new_user = User(
+            user_name=data['user_name'],
+            user_email=data['user_email'],
+            user_password=generate_password_hash(data['user_password'], method='pbkdf2:sha256'),
+            user_sid=user_sid,
+            user_fid=user_fid
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user
+
+    except IntegrityError:
+        db.session.rollback()
+        raise ValueError("A user with this email or username already exists.")
 
 
 # Login User
@@ -154,3 +189,12 @@ def deactivate_account(user_id):
     db.session.commit()
 
     return True
+
+
+
+# Get user by id
+def get_user_by_id(user_id):
+    user = User.query.filter_by(user_id=user_id).first()
+    if not user:
+        raise ValueError("User not found")
+    return user

@@ -89,7 +89,7 @@
                  comments: 0,
                  time: 'Just now'
              };
-             
+
              posts.unshift(newPost);
              renderPosts();
              newPostInput.value = '';
@@ -114,7 +114,7 @@
                  data: data
              })
          });
-         
+
          const result = await response.json();
          return result;
      } catch (error) {
@@ -164,3 +164,46 @@
  }
 
 
+ function previewImage() {
+    const file = document.getElementById("imageUpload").files[0];
+    const preview = document.getElementById("imagePreview");
+
+    // Clear any previous preview
+    preview.innerHTML = "";
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            const imgElement = document.createElement("img");
+            imgElement.src = event.target.result;
+            imgElement.classList.add("w-full", "h-auto", "rounded-lg"); // Style the image as needed
+            preview.appendChild(imgElement);
+        };
+
+        reader.readAsDataURL(file);
+    }
+}
+
+
+function refreshAccessToken() {
+    let refreshToken = localStorage.getItem("refresh_token");
+
+    $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/api/auth/refresh",
+        contentType: "application/json",
+        data: JSON.stringify({ refresh_token: refreshToken }),
+        success: function (response) {
+            // Update new tokens
+            localStorage.setItem("access_token", response.access_token);
+            console.log("Access token refreshed successfully");
+        },
+        error: function (xhr, status, error) {
+            console.error("Refresh Token Error:", xhr.responseText);
+            alert("Session expired! Please login again.");
+            localStorage.clear();  // Clear stored tokens
+            window.location.href = 'login.html';  // Redirect to login page
+        }
+    });
+}
