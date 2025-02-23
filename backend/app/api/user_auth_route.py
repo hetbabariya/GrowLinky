@@ -3,6 +3,8 @@ from marshmallow import ValidationError
 from app.schemas.user_auth import RegistrationSchema, LoginSchema
 from app.services.user_auth_services import register_user, login_user
 from flask_jwt_extended import jwt_required
+import uuid
+from datetime import datetime
 
 auth_bp = Blueprint('auth', __name__)
 
